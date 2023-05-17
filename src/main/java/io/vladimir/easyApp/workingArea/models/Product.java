@@ -8,9 +8,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_product;
 
-    @ManyToOne()
-    @JoinColumn(name="id_people",referencedColumnName = "products")
-    private Person id_people;
+//    @ManyToOne()
+//    @JoinColumn(name="id_people",referencedColumnName = "products")
+//    private Person id_people;
 
     private String name;
 

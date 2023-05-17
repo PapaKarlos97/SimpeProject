@@ -1,12 +1,12 @@
 package io.vladimir.easyApp.workingArea.controllers;
 
 import io.vladimir.easyApp.workingArea.models.Person;
+import io.vladimir.easyApp.workingArea.enums.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,12 +20,13 @@ public class MainController {
 @PostMapping("/")
 public String getData(@RequestParam(value = "name",required = false) String name,
                       @RequestParam(value = "email",required = false) String mail,
+                      @RequestParam(value = "positionPeople",required = false)Position position,
                       Model model){
     SessionFactory sessionFactory=new Configuration().configure("hibernate.cfg.xml").
             addAnnotatedClass(Person.class).buildSessionFactory();
     Session session=sessionFactory.getCurrentSession();
 
-    Person person = new Person(name, mail, 250);
+    Person person = new Person(name, mail,position);
 
     try {
         session.beginTransaction();
@@ -36,7 +37,7 @@ public String getData(@RequestParam(value = "name",required = false) String name
     }
 
 
-    model.addAttribute("resMsg",name+", you mail is "+mail);
+    model.addAttribute("resMsg",name+", you mail is "+mail+", your position is "+position);
     return "result";
 }
 
