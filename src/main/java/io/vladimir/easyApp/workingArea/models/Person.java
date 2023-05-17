@@ -2,6 +2,8 @@ package io.vladimir.easyApp.workingArea.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "person")
 public class Person {
@@ -9,6 +11,8 @@ public class Person {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "id")
    private long id;
+   @OneToMany(mappedBy = "id_people")
+   private List<Product> products;
 
    private String name;
    private String email;
