@@ -8,11 +8,52 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_product;
 
-//    @ManyToOne()
-//    @JoinColumn(name="id_people",referencedColumnName = "products")
-//    private Person id_people;
+    @ManyToOne()
+    @JoinColumn(name="id_person",referencedColumnName = "id")
+    private Person owner;
+    @Column(name = "product")
+    private String product;
+    @Column(name = "cost")
+    private float cost;
 
-    private String name;
+    public Product() {
+    }
 
-    private float price;
+    public Product(Person owner, String product, float cost) {
+        this.owner = owner;
+        this.product = product;
+        this.cost = cost;
+    }
+
+    public long getId_product() {
+        return id_product;
+    }
+
+    public void setId_product(long id_product) {
+        this.id_product = id_product;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
 }

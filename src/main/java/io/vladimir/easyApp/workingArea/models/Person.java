@@ -3,6 +3,8 @@ package io.vladimir.easyApp.workingArea.models;
 import io.vladimir.easyApp.workingArea.enums.Position;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "person")
 public class Person {
@@ -10,8 +12,9 @@ public class Person {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "id")
    private long id;
-//   @OneToMany(mappedBy = "id_people")
-//   private List<Product> products;
+
+   @OneToMany(mappedBy = "owner")
+   private List<Product> products;
 
    private String name;
    private String email;
@@ -84,5 +87,13 @@ public class Person {
 
    public void setPosition(Position position) {
       this.position = position;
+   }
+
+   public List<Product> getProducts() {
+      return products;
+   }
+
+   public void setProducts(List<Product> products) {
+      this.products = products;
    }
 }
