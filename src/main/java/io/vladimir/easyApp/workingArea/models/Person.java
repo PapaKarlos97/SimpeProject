@@ -96,4 +96,16 @@ public class Person {
    public void setProducts(List<Product> products) {
       this.products = products;
    }
+
+   @Override
+   public String toString() {
+      return "Person{" +
+              "id=" + id +
+              ", products=" + products +
+              ", name='" + name + '\'' +
+              ", email='" + email + '\'' +
+              ", salary=" + salary +
+              ", position=" + position +
+              '}';
+   }
 }

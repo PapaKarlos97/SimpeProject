@@ -2,7 +2,8 @@ package io.vladimir.easyApp.workingArea.models;
 
 import jakarta.persistence.*;
 
-@Entity(name = "products")
+@Entity
+@Table (name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,6 @@ public class Product {
 
     public Product() {
     }
-
     public Product(Person owner, String product, float cost) {
         this.owner = owner;
         this.product = product;
@@ -55,5 +55,15 @@ public class Product {
 
     public void setCost(float cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id_product=" + id_product +
+                ", owner=" + owner +
+                ", product='" + product + '\'' +
+                ", cost=" + cost +
+                '}';
     }
 }
