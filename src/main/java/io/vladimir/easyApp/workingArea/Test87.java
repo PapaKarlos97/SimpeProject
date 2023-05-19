@@ -19,9 +19,10 @@ public class Test87 {
 
         try {
             session.beginTransaction();
-            Person person1=session.get(Person.class,7);
+            Person person1=session.get(Person.class,1);
             List<Product> productList=person1.getProducts();
-            System.out.println(productList);
+
+            System.out.println(person1.getId()+", "+person1.getName());
 
 
 
