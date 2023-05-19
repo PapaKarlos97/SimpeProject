@@ -1,16 +1,14 @@
 package io.vladimir.easyApp.workingArea.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "actors")
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_actor")
     private int id_actor;
-    @Column(name = "nameActor")
-    private String name;
-    @Column(name = "age")
-    private int age;
+
 }
