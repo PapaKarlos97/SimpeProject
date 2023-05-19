@@ -1,6 +1,7 @@
 package io.vladimir.easyApp.workingArea.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Movie {
     private int year;
 
     @ManyToMany(mappedBy = "movies")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     List<Actor> actors;
 
     public Movie() {
@@ -49,5 +51,13 @@ public class Movie {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 }

@@ -1,11 +1,13 @@
 package io.vladimir.easyApp.workingArea.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.lang.model.element.Name;
 import java.util.List;
 
 @Entity
+@Table(name = "actors")
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +17,7 @@ public class Actor {
     @Column(name = "age")
     private int age;
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinTable(
             name = "compatible",
             joinColumns = @JoinColumn (name = "id_actor"),
