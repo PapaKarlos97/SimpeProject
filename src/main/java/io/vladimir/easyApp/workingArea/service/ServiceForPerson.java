@@ -23,5 +23,11 @@ public class ServiceForPerson {
          Optional<Person> findPerson =personRepository.findById(id);
     return findPerson.orElse(null);
     }
+    public void save( Person person){
+        personRepository.save(person);
+    }
 
+    public void update(Person person){
+        personRepository.save(person);
+    }
 }
