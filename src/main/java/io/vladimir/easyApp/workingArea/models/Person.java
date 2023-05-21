@@ -2,7 +2,9 @@ package io.vladimir.easyApp.workingArea.models;
 
 import io.vladimir.easyApp.workingArea.enums.Position;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,12 +15,26 @@ public class Person {
    @Column(name = "id")
    private long id;
 
-   @OneToMany(mappedBy = "owner")
+   @OneToMany(mappedBy = "owner",fetch = FetchType.EAGER)
+
    private List<Product> products;
 
    private String name;
    private String email;
    private int salary;
+
+
+   @Column(name = "date_of_birth")
+   @Temporal(TemporalType.DATE)
+   @DateTimeFormat(pattern = "yyyy/MM/dd")
+   private Date dateOfBirth;
+
+
+   @Column(name = "created_at")
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date createdAt;
+
+
    @Column(columnDefinition = "enum('SELLER','TESTER','DEVELOPER','MANAGER')")
    @Enumerated(EnumType.STRING)
    private Position position;
@@ -46,6 +62,13 @@ public class Person {
       this.name = name;
       this.email = email;
       this.salary = salary;
+      this.position = position;
+   }
+
+   public Person( String name, String email, Date dateOfBirth, Position position) {
+      this.name = name;
+      this.email = email;
+      this.dateOfBirth = dateOfBirth;
       this.position = position;
    }
 
@@ -97,14 +120,30 @@ public class Person {
       this.products = products;
    }
 
+   public Date getDateOfBirth() {
+      return dateOfBirth;
+   }
+
+   public void setDateOfBirth(Date dateOfBirth) {
+      this.dateOfBirth = dateOfBirth;
+   }
+
+   public Date getCreatedAt() {
+      return createdAt;
+   }
+
+   public void setCreatedAt(Date createdAt) {
+      this.createdAt = createdAt;
+   }
+
    @Override
    public String toString() {
       return "Person{" +
-              "id=" + id +
-              ", products=" + products +
-              ", name='" + name + '\'' +
+              "name='" + name + '\'' +
               ", email='" + email + '\'' +
               ", salary=" + salary +
+              ", dateOfBirth=" + dateOfBirth +
+              ", createdAt=" + createdAt +
               ", position=" + position +
               '}';
    }
