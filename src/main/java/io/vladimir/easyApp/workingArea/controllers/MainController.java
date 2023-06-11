@@ -10,15 +10,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -36,17 +35,16 @@ public class MainController {
     }
 
     @RequestMapping("/")
-    public String shoAll(Model model){
+    public String shoAll(Model model) {
 
         List<Person> peopleList;
-        try (Session session=sessionFactory.getCurrentSession();) {
+        try (Session session = sessionFactory.getCurrentSession();) {
             session.beginTransaction();
-            peopleList = session.createQuery("from Person ").getResultList();
-
+            peopleList = session.createQuery("select p from Person p LEFT JOIN FETCH p.products").getResultList();
             session.getTransaction().commit();
         }
-        model.addAttribute("people",peopleList);
-    return "show";
+        model.addAttribute("people", peopleList);
+        return "show";
     }
 
     @RequestMapping("/c")
@@ -95,5 +93,34 @@ public String getData(@RequestParam(value = "name",required = false) String name
     }
     return "point";
 }
+@DeleteMapping("/{id}")
+@ResponseBody
+public String deletePerson(@PathVariable int id,Model model,@ModelAttribute("variable")Person person){
 
+ return serviceForPerson.deleteById(person.getId());
+
+}
+@PostMapping("/{id}")
+@ResponseBody
+public String edit(@PathVariable("id")int id,Model model,
+@ModelAttribute("p")Person person) {
+//    Person personForUpdated = serviceForPerson.findById(id);
+//
+//   if (!Objects.equals(personForUpdated.getName(), person.getName()) && !Objects.equals(personForUpdated.getName(), "")) personForUpdated.setName(person.getName());
+//
+//    personForUpdated.setEmail(person.getEmail());
+//    serviceForPerson.save(personForUpdated);
+//    return person.getName()+", "+person.getEmail();
+
+    serviceForPerson.update(person.getId(),person);
+    return person.getName()+","+person.getEmail();
+}
+@GetMapping("/e{id}")
+    public String updatePerson(@PathVariable int id, Model model){
+    Person person= serviceForPerson.findById(id);
+    model.addAttribute("p",person);
+
+
+    return "updatePerson";
+}
 }

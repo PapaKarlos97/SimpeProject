@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -27,11 +28,29 @@ public class ServiceForPerson {
         personRepository.save(person);
     }
 
-    public void update(int id,Person personToUpdate){
-    personToUpdate.setId(id);
-        personRepository.save(personToUpdate);
+
+    public Person update(int id,Person personToUpdate){
+    Optional<Person>person1=personRepository.findById(id);
+    if (person1.isPresent()){
+        Person originalPerson=person1.get();
+    if (Objects.nonNull(personToUpdate.getName())&&!"".equalsIgnoreCase(personToUpdate.getName())){
+        originalPerson.setName(personToUpdate.getName());
     }
-    public void delete(int id){
+    if (Objects.nonNull(personToUpdate.getEmail())&&!"".equalsIgnoreCase(personToUpdate.getEmail())){
+    originalPerson.setEmail(personToUpdate.getEmail());
+    }
+    return personRepository.save(originalPerson);
+    }else return null;
+    }
+
+
+    public String deleteById(int id){
+    if (personRepository.findById(id).isPresent()){
         personRepository.deleteById(id);
+        return "Person deleted successfully";
     }
+
+        return "Person not find";
+    }
+
 }

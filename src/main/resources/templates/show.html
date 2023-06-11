@@ -6,7 +6,12 @@
 </head>
 <body>
 <div th:each="variable : ${people}">
-  <p th:text="${variable.getName()}+', email: '+ ${variable.getEmail}+', salary: '+${variable.getSalary}+', position: '+${variable.getPosition}">user</p>
+  <p th:text="${variable.getName()}+', email: '+ ${variable.getEmail}
+  +', salary: '+${variable.getSalary}+', position: '+${variable.getPosition}"></p>
+    <form th:action="@{/e{id}(id=${variable.getId()})}" th:method="GET">
+    <button > Update</button></form>
+    <form th:action="@{/{id}(id=${variable.getId()})}" th:method="DELETE">
+    <button> Delete</button></form>
     <br>
 <!--    <div th:each="vars:${people}">-->
 <!--        <p th:text="${vars.getProducts}"></p>-->

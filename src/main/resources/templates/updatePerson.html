@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/{id}(id=${p.getId()})}" th:method="POST" >
+    <label for="name"><span th:text="${p.getName()}"/></label>
+    <input name="name" placeholder="Введите имя" type="text"  id="name">
+        <br>
+    <span th:text="${p.getEmail()}"/>
+    <input name="email" placeholder="введите email" type="text" id="email">
+       <br>
+    <label for="positionPeople"><span th:text="${p.getPosition()}"/></label>
+    <select id="positionPeople" name="positionPeople">
+        <option value=""> </option>
+        <option value="SELLER">Seller</option>
+        <option value="TESTER">Tester</option>
+        <option value="DEVELOPER">Developer</option>
+        <option value="MANAGER">Manager</option>
+    </select>
+    <BR>
+    <input type="submit" value="Update!!!">
+</form>
+</body>
+</html>
